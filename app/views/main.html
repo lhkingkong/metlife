@@ -1,0 +1,56 @@
+<div class="main">
+    <main-header></main-header>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="campaign-pages-hero">
+                <img src="../images/metlife-campaignhero.png" alt="Description of campaign hero">
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="contact-form">
+                <div class="contact-form-quotes">
+                    <div>Life Insurance Quotes</div><br>
+                    <div class="contact-form-quotes-callout"><strong>I want to get a quote</strong></div><br><br>
+                    <div class="align-center">
+                        <a class="ml-button-primary" ng-href="#/form">Get my Quote</a>
+                    </div>
+                </div>
+                <br><br>
+                <div class="contact-form-quotes-callout">Call us now 1-800-Met-LIFE</div>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                <button class="btn btn-primary" type="button" ng-click="search()"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-12" ng-show="applications && applications.length>0">
+            <form data-forms="floating-label" class="ml-form" method="post">
+                <table class="ml-table ">
+                    <tr class="ml-table-col-row">
+                        <td class="ml-table-col"><label class="ml-table-col-header-title">Identifier</label></td>
+                        <td class="ml-table-col"><label class="ml-table-col-header-title">Plan</label></td>
+                        <td class="ml-table-col"><label class="ml-table-col-header-title">Insurance Amount</label></td>
+                        <td class="ml-table-col"><label class="ml-table-col-header-title">Payment Method</label></td>
+                        <td class="ml-table-col"><label class="ml-table-col-header-title">Action</label></td>
+                    </tr>
+                    <tr ng-repeat="application in applications">
+                        <td class="ml-table-col"><a ng-href="#/form/{{application.id}}">{{application.id}}</a></td>
+                        <td class="ml-table-col">{{application.plan}}</td>
+                        <td class="ml-table-col">{{application.insuranceAmmount}}</td>
+                        <td class="ml-table-col">{{application.paymentMethod}}</td>
+                        <td class="ml-table-col">PDF</td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <main-footer></main-footer>
+</div>

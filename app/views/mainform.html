@@ -1,0 +1,557 @@
+<div class="mainform campaign-pages">
+    <div class="container">
+        <main-header></main-header>
+
+        <div class="columns is-gapless">
+            <div class="column is-full">
+                <div class="contact-form">
+
+                    <div class="applicantData" ng-show="section === 1">
+                        <div class="contact-form-body">
+                            <form data-forms="floating-label" class="ml-form">
+
+                                <div class="row">
+                                    <div style="width:100%;">
+                                        <div style="width:90%; float:left;">
+                                            <h3 class="contact-form-title">Applicant Data Holder</h3>
+                                        </div>
+                                        <div style="width:10%; float:right; text-align:center;">
+                                            <h3 class="contact-form-title"><label id="toggle1">+</label></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div id="dv-ml-form-field-toggle1">
+                                    <div class="row">
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field column is-11">
+                                                <label>
+												<input type="text" ng-model="application.name" 
+                                                       invalid-field="application.name">
+												<span>Name(s)</span>
+											</label>
+                                            </fieldset>
+                                        </div>
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field column is-11">
+                                                <label>
+												<input type="text" ng-model="application.paternalSurname" 
+                                                       invalid-field="application.paternalSurname">
+												<span>Paternal Surname</span>
+											</label>
+                                            </fieldset>
+                                        </div>
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field column is-11">
+                                                <label>
+												<input type="text" ng-model="application.maternalSurname" 
+                                                       invalid-field="application.maternalSurname">
+												<span>Maternal Surname</span>
+											</label>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="column_3-form">
+                                            <!--<fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                <label>
+												<input type="text" ng-model="application.birthDate"  
+                                                       invalid-field="application.birthDate" placeholder="DD/MM/YYYY">
+												<span>Birth Date</span>
+											</label>
+                                            </fieldset>-->
+                                            <div class="ml-form-field ml-form-field-select column is-11">
+                                                <p class="input-group">
+                                                    <input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="application.birthDate" close-text="Close" is-open="popup1.opened" ng-click="popup1.opened = true" placeholder="Birth Date (dd/MM/yyyy)" onkeydown="return false" />
+                                                    <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="popup1.opened = true"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                <select ng-model="application.gender" invalid-field="application.birthDate">
+												<option disabled selected value="">Gender</option>
+												<option value="M">Masculine</option>
+												<option value="F">Feminine</option>
+											  </select>
+                                            </fieldset>
+                                        </div>
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                <select ng-model="application.civilStatus" invalid-field="application.birthDate">
+												<option disabled selected value="">Civil Status</option>
+												<option value="S">Single</option>
+												<option value="M">Married</option>
+											  </select>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field column is-11">
+                                                <label>
+												<input type="text" ng-model="application.curp">
+												<span>CURP</span>
+											</label>
+                                            </fieldset>
+                                        </div>
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field column is-11">
+                                                <label>
+												<input type="text" ng-model="application.rfc">
+												<span>R.F.C.</span>
+											</label>
+                                            </fieldset>
+                                        </div>
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field column is-11">
+                                                <label>
+												<input type="text" ng-model="application.nominalIdentifier">
+												<span>ID / Registration / Nominal Identifier</span>
+											</label>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                <label>
+												<input type="text" ng-model="application.height">
+												<span>Height</span>
+											</label>
+                                            </fieldset>
+                                        </div>
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                <label>
+												<input type="text" ng-model="application.weight">
+												<span>Weight</span>
+											</label>
+                                            </fieldset>
+                                        </div>
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field column is-11">
+                                                <label>
+												<input type="text" ng-model="application.mobile" placeholder="XXX-XXX-XXXX">
+												<span>Mobile</span>
+											</label>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field column is-11">
+                                                <label>
+												<input type="text" ng-model="application.email">
+												<span>EMail</span>
+											</label>
+                                            </fieldset>
+                                        </div>
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field column is-11">
+                                                <label>
+												<input type="text"  ng-model="application.emailConfirm">
+												<span>Confirm EMail</span>
+											</label>
+                                            </fieldset>
+                                        </div>
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field column is-11">
+                                                <div class="ml-form-field-checkboxes-group">
+                                                    <input id="lorem2" type="checkbox" ng-model="application.withoutEmail">
+                                                    <label for="lorem2">Without EMail</label>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div style="width:100%;">
+                                        <div style="width:90%; float:left;">
+                                            <h3 class="contact-form-title">Particular Address</h3>
+                                        </div>
+                                        <div style="width:10%; float:right; text-align:center;">
+                                            <h3 class="contact-form-title"><label id="toggle2">+</label></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div id="dv-ml-form-field-toggle2">
+                                    <div class="row">
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field column is-11">
+                                                <label>
+												<input type="text" ng-model="application.street">
+												<span>Street</span>
+											</label>
+                                            </fieldset>
+                                        </div>
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                <label>
+												<input type="text" ng-model="application.streetNumber">
+												<span>Street Number</span>
+											</label>
+                                            </fieldset>
+                                        </div>
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                <label>
+												<input type="text" ng-model="application.suiteNumber">
+												<span>Suite Number</span>
+											</label>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                <label>
+												<input type="text" ng-model="application.zipCode" ng-keyup="updateZipCodeInfo($event)">
+												<span>Zip Code (MX)</span>
+											</label>
+                                            </fieldset>
+                                        </div>
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                <label ng-show="application.zipCode.length !== 5 || selectedNeighborhood === '-- Otra --'">
+                                                    <input type="text" ng-model="application.neighborhood">
+                                                    <span>Neighborhood</span>
+                                                </label>
+                                                <select ng-model="selectedNeighborhood" ng-options="item as item for item in neighborhoods" ng-show="application.zipCode.length === 5 && selectedNeighborhood !== '-- Otra --'" ng-change="saveNeighborhood()">
+                                                    <option disabled selected value="">Neighborhood</option>
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                <label>
+                                                    <input type="text" ng-model="application.municipality">
+                                                    <span>Delegation / Municipality</span>
+                                                </label>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                <label>
+                                                    <input type="text" ng-model="application.city">
+                                                    <span>City</span>
+                                                </label>
+                                            </fieldset>
+                                        </div>
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                <label>
+                                                    <input type="text" ng-model="application.state">
+                                                    <span>State</span>
+                                                </label>
+                                            </fieldset>
+                                        </div>
+                                        <div class="column_3-form">
+                                            <fieldset class="ml-form-field column is-11">
+                                                <label>
+												<input type="text" ng-model="application.particularPhone" placeholder="XXX-XXX-XXXX">
+												<span>Particular Phone Number</span>
+											</label>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                </div>
+
+
+                                <div class="align-right">
+                                    <button class="ml-button-secondary" ng-click="cancelApplication($event)">Cancel</button>
+                                    <button class="ml-button-primary" ng-click="section = 2">Next</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="contact-form-details">
+                            <p>By clicking Submit, you agree that we* may contact you at the number you've provided, possibly using automated technology or a prerecorded voice, to talk about our products and services. If you don't want to give this permission, you can still get a quote or make a purchase by calling us directly at 1-800-638-5433</p>
+                            <p>*<a href="">A MetLife company</a> or third party acting on MetLife's behalf.</p>
+                        </div>
+                    </div>
+
+                    <div class="planData" ng-show="section === 2">
+                        <div class="contact-form-body">
+                            <form data-forms="floating-label" class="ml-form" method="post">
+
+                                <h3 class="contact-form-title">Plan Data</h3>
+                                <hr>
+
+                                <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                    <select name="Options">
+										<option disabled selected>PROVIDA ML99</option>
+										<option value="1">One</option>
+										<option value="2">Two</option>
+										<option value="3">Three</option>
+									  </select>
+                                </fieldset>
+
+                                <table>
+                                    <th class="ml-table-col ml-table-col-header"><label class="ml-table-col-header-title">Code</label>
+                                    </th>
+                                    <th class="ml-table-col ml-table-col-header"><label class="ml-table-col-header-title">Plan Data</label>
+                                    </th>
+                                    <th class="ml-table-col ml-table-col-header"><label class="ml-table-col-header-title">Questionnaire</label>
+                                    </th>
+                                    <th class="ml-table-col ml-table-col-header"><label class="ml-table-col-header-title">Insurance Amount </label><br>Holder / Complementary
+                                    </th>
+                                    <th class="ml-table-col ml-table-col-header"><label class="ml-table-col-header-title">Premium</label>
+                                    </th>
+                                    <tr class="ml-table-col-row" style="background: white;">
+                                        <td class="ml-table-col">BAS</td>
+                                        <td class="ml-table-col">
+                                            <label for="lorem2">Basic Benefit by Death</label>
+                                            <div class="ml-form-field-helptext"> <a href="#tooltipid" class="ml-form-field-helptext-link">Coverage Data</a>
+                                                <div id="tooltipid" class="tooltip">Lorem tool tip to go here lorem ipsum dolor sit amet dolor sit</div>
+                                            </div>
+                                        </td>
+                                        <td class="ml-table-col">
+                                            <button class="ml-button-primary" onClick="sendTo('question.html');">Questionnaire</button>
+                                        </td>
+                                        <td class="ml-table-col">
+                                            <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                <select name="Options">
+													<option disabled selected>$ 1,000,000</option>
+													<option value="1">$ 900,000</option>
+													<option value="2">$ 800,000</option>
+													<option value="3">$ 700,000</option>
+												  </select>
+                                            </fieldset>
+                                        </td>
+                                        <td class="ml-table-col"><label for="lorem2">$200.00 </label></td>
+                                    </tr>
+                                    <tr class="ml-table-col ml-table-col-header-title">
+                                        <td colspan=5 class="ml-table-col">Additional Benefits </td>
+                                    </tr>
+                                    <tr ng-repeat="benefit in additionalBenefits" class="ml-table-col-row">
+                                        <td class="ml-table-col">{{benefit.code}}</td>
+                                        <td class="ml-table-col">{{benefit.label}}</td>
+                                        <td class="ml-table-col"></td>
+                                        <td class="ml-table-col">
+                                            <div ng-switch="benefit.type">
+                                                <div ng-switch-when="options">
+                                                    <fieldset class="ml-form-field ml-form-field-select column">
+                                                        <select ng-model="application.additionalBenefits[benefit.id]" ng-options="item as item for item in benefit.options">
+                                                            <option disabled selected value="">-- Select option --</option>
+                                                        </select>
+                                                    </fieldset>
+                                                </div>
+                                                <div ng-switch-default>
+                                                    <fieldset class="ml-form-field column">
+                                                        <input type="text" ng-model="application.additionalBenefits[benefit.id]">
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="ml-table-col">{{benefit.premium}}</td>
+                                    </tr>
+
+                                </table>
+
+                                <br>
+
+                                <div class="align-right">
+                                    <button class="ml-button-secondary" ng-click="section=1">Back</button>
+                                    <button class="ml-button-primary" ng-click="section=3">Next</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                    <div class="paymentType" ng-show="section === 3">
+                        <div class="contact-form">
+                            <div class="contact-form-body">
+                                <form data-forms="floating-label" class="ml-form" method="post">
+
+                                    <h3 class="contact-form-title">Basic Information for Payment Type</h3>
+                                    <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                        <select id="toggle3" name="Options">
+										<option disabled selected>Select Payment Method</option>
+										<option value="1">Payroll Deduction</option>
+										<option value="2">Collection by Bank</option>
+									  </select>
+                                    </fieldset>
+                                    <hr>
+
+                                    <div id="dv-ml-form-field-toggle1">
+                                        <div class="row">
+                                            <div class="column_3-form">
+                                                <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                    <select name="Options">
+												<option disabled selected>Federative Entity</option>
+												<option value="1">One</option>
+												<option value="2">Two</option>
+												<option value="3">Three</option>
+											  </select>
+                                                </fieldset>
+                                            </div>
+                                            <div class="column_3-form">
+                                                <fieldset class="ml-form-field column is-11">
+                                                    <label>
+												<input type="text" ng-model="application.retainer">
+												<span>Retainer</span>
+											</label>
+                                                </fieldset>
+                                            </div>
+                                            <div class="column_3-form">
+                                                <fieldset class="ml-form-field column is-11">
+                                                    <label>
+												<button class="ml-button-primary" onClick="sendTo('retainer.html');" >Retainer</button>
+											</label>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="column_3-form">
+                                                <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                    <label>
+												<input type="text" ng-model="application.paymentUnit">
+												<span>Payment Unit</span>
+											</label>
+                                                </fieldset>
+                                            </div>
+                                            <div class="column_3-form">
+                                                <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                    <label>
+												<input type="text" ng-model="application.concept">
+												<span>Concept</span>
+											</label>
+                                                </fieldset>
+                                            </div>
+                                            <div class="column_3-form">
+                                                <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                    <select name="Options">
+												<option disabled selected>Payment Period</option>
+												<option value="1">Biweekly</option>
+												<option value="2">Monthly</option>
+												<option value="3">Quarterly</option>
+												<option value="4">Semiannual</option>
+												<option value="5">Annual</option>
+											  </select>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="column_3-form">
+                                                <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                    <select name="Options">
+												<option disabled selected>Payment Method</option>
+												<option value="1">One</option>
+												<option value="2">Two</option>
+												<option value="3">Three</option>
+											  </select>
+                                                </fieldset>
+                                            </div>
+                                            <div class="column_3-form">
+                                                <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                    <select name="Options">
+												<option disabled selected>Labor Regime</option>
+												<option value="1">One</option>
+												<option value="2">Two</option>
+												<option value="3">Three</option>
+											  </select>
+                                                </fieldset>
+                                            </div>
+                                            <div class="column_3-form">
+                                                <fieldset class="ml-form-field column is-11">
+                                                    <label>
+											</label>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+
+                                        <div id="dv-ml-form-field-toggle3">
+                                            <div class="row">
+                                                <div class="column_3-form">
+                                                    <fieldset class="ml-form-field column is-11">
+                                                        <label>
+												<input type="text" ng-model="application.clabe">
+												<span>CLABE Account / Token</span>
+											</label>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="column_3-form">
+                                                    <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                        <label>
+												<input type="text" ng-model="application.confirmation">
+												<span>Confirmation</span>
+											</label>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="column_3-form">
+                                                    <fieldset class="ml-form-field column is-11">
+                                                        <label>
+												<input type="text" ng-model="application.paymentProposal">
+												<span>Payment Proposal</span>
+											</label>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="column_3-form">
+                                                    <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                        <select name="Options">
+												<option disabled selected>Select Bank</option>
+												<option value="1">One</option>
+												<option value="2">Two</option>
+												<option value="3">Three</option>
+											  </select>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="column_3-form">
+                                                    <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                        <select name="Options">
+												<option disabled selected>Select Priority</option>
+												<option value="1">One</option>
+												<option value="2">Two</option>
+												<option value="3">Three</option>
+											  </select>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="column_3-form">
+                                                    <fieldset class="ml-form-field column is-11">
+                                                        <label>
+												<input type="text" ng-model="application.paymentChannel">
+												<span>Payment Channel</span>
+											</label>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="contact-form-details">
+                                        <p>By clicking Submit, you agree that we* may contact you at the number you've provided, possibly using automated technology or a prerecorded voice, to talk about our products and services. If you don't want to give this permission, you can still get a quote or make a purchase by calling us directly at 1-800-638-5433</p>
+                                        <p>*<a href="">A MetLife company</a> or third party acting on MetLife's behalf.</p>
+                                    </div>
+
+                                    <div class="align-right">
+                                        <button class="ml-button-secondary" ng-click="section=2">Back</button>
+                                        <button class="ml-button-primary" ng-click="submitForm($event)">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <main-footer></main-footer>
+    </div>
+</div>

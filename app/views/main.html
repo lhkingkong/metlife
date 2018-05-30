@@ -38,14 +38,14 @@
                         <td class="ml-table-col"><label class="ml-table-col-header-title">Identifier</label></td>
                         <td class="ml-table-col"><label class="ml-table-col-header-title">Plan</label></td>
                         <td class="ml-table-col"><label class="ml-table-col-header-title">Insurance Amount</label></td>
-                        <td class="ml-table-col"><label class="ml-table-col-header-title">Payment Method</label></td>
+                        <td class="ml-table-col"><label class="ml-table-col-header-title">Status</label></td>
                         <td class="ml-table-col"><label class="ml-table-col-header-title">Action</label></td>
                     </tr>
                     <tr ng-repeat="application in applications">
                         <td class="ml-table-col"><a ng-href="#/form/{{application.id}}">{{application.id}}</a></td>
                         <td class="ml-table-col">{{application.plan}}</td>
                         <td class="ml-table-col">{{application.insuranceAmmount}}</td>
-                        <td class="ml-table-col">{{application.paymentMethod}}</td>
+                        <td class="ml-table-col">{{application.status}}</td>
                         <td class="ml-table-col">PDF</td>
                     </tr>
                 </table>

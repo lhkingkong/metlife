@@ -322,15 +322,10 @@
                                         </td>
                                         <td class="ml-table-col">
                                             <fieldset class="ml-form-field ml-form-field-select column is-11">
-                                                <select name="Options">
-													<option disabled selected>$ 1,000,000</option>
-													<option value="1">$ 900,000</option>
-													<option value="2">$ 800,000</option>
-													<option value="3">$ 700,000</option>
-												  </select>
+                                                <select ng-init="application.basicBenefit = basicBenefitOptions[0]" ng-model="application.basicBenefit" ng-options="item as item for item in basicBenefitOptions"></select>
                                             </fieldset>
                                         </td>
-                                        <td class="ml-table-col"><label for="lorem2">$200.00 </label></td>
+                                        <td class="ml-table-col"><label for="lorem2">{{calculatePremium(application.basicBenefit)}}</label></td>
                                     </tr>
                                     <tr class="ml-table-col ml-table-col-header-title">
                                         <td colspan=5 class="ml-table-col">Additional Benefits </td>
@@ -355,7 +350,11 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="ml-table-col">{{benefit.premium}}</td>
+                                        <td class="ml-table-col">{{calculatePremium(application.additionalBenefits[benefit.id])}}</td>
+                                    </tr>
+                                    <tr class="ml-table-col ml-table-col-header-title">
+                                        <td colspan=4 class="ml-table-col">Total</td>
+                                        <td class="ml-table-col">{{calculateTotalPremium()}}</td>
                                     </tr>
 
                                 </table>
@@ -401,15 +400,8 @@
                                             <div class="column_3-form">
                                                 <fieldset class="ml-form-field column is-11">
                                                     <label>
-												<input type="text" ng-model="application.retainer">
+												<input type="text" onKeyUp="this.setAttribute('value', this.value);" value="">
 												<span>Retainer</span>
-											</label>
-                                                </fieldset>
-                                            </div>
-                                            <div class="column_3-form">
-                                                <fieldset class="ml-form-field column is-11">
-                                                    <label>
-												<button class="ml-button-primary" onClick="sendTo('retainer.html');" >Retainer</button>
 											</label>
                                                 </fieldset>
                                             </div>
@@ -418,7 +410,7 @@
                                             <div class="column_3-form">
                                                 <fieldset class="ml-form-field ml-form-field-select column is-11">
                                                     <label>
-												<input type="text" ng-model="application.paymentUnit">
+												<input type="text" onKeyUp="this.setAttribute('value', this.value);" value="">
 												<span>Payment Unit</span>
 											</label>
                                                 </fieldset>
@@ -426,7 +418,7 @@
                                             <div class="column_3-form">
                                                 <fieldset class="ml-form-field ml-form-field-select column is-11">
                                                     <label>
-												<input type="text" ng-model="application.concept">
+												<input type="text" onKeyUp="this.setAttribute('value', this.value);" value="">
 												<span>Concept</span>
 											</label>
                                                 </fieldset>
@@ -473,63 +465,67 @@
                                             </div>
                                         </div>
 
-                                        <div id="dv-ml-form-field-toggle3">
-                                            <div class="row">
-                                                <div class="column_3-form">
-                                                    <fieldset class="ml-form-field column is-11">
-                                                        <label>
-												<input type="text" ng-model="application.clabe">
+                                        <div ng-repeat="card in paymentCards">
+                                            <hr>
+                                            <div id="dv-ml-form-field-toggle3">
+                                                <div class="row">
+                                                    <div class="column_3-form">
+                                                        <fieldset class="ml-form-field column is-11">
+                                                            <label>
+												<input type="text" ng-model="card.clabe">
 												<span>CLABE Account / Token</span>
 											</label>
-                                                    </fieldset>
-                                                </div>
-                                                <div class="column_3-form">
-                                                    <fieldset class="ml-form-field ml-form-field-select column is-11">
-                                                        <label>
-												<input type="text" ng-model="application.confirmation">
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="column_3-form">
+                                                        <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                            <label>
+												<input type="text" ng-model="card.clabeConfirmation">
 												<span>Confirmation</span>
 											</label>
-                                                    </fieldset>
-                                                </div>
-                                                <div class="column_3-form">
-                                                    <fieldset class="ml-form-field column is-11">
-                                                        <label>
-												<input type="text" ng-model="application.paymentProposal">
-												<span>Payment Proposal</span>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="column_3-form">
+                                                        <fieldset class="ml-form-field column is-11">
+                                                            <label>
+												<input type="text"  ng-model="card.deadline">
+												<span>Payment Deadline (in days))</span>
 											</label>
-                                                    </fieldset>
+                                                        </fieldset>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="column_3-form">
-                                                    <fieldset class="ml-form-field ml-form-field-select column is-11">
-                                                        <select name="Options">
-												<option disabled selected>Select Bank</option>
-												<option value="1">One</option>
-												<option value="2">Two</option>
-												<option value="3">Three</option>
-											  </select>
-                                                    </fieldset>
-                                                </div>
-                                                <div class="column_3-form">
-                                                    <fieldset class="ml-form-field ml-form-field-select column is-11">
-                                                        <select name="Options">
+                                                <div class="row">
+                                                    <div class="column_3-form">
+                                                        <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                            <select ng-model="card.bank" ng-options="item as item for item in banks">
+                                                                <option disabled selected value="">Bank</option>
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="column_3-form">
+                                                        <fieldset class="ml-form-field ml-form-field-select column is-11">
+                                                            <select name="Options">
 												<option disabled selected>Select Priority</option>
 												<option value="1">One</option>
 												<option value="2">Two</option>
 												<option value="3">Three</option>
 											  </select>
-                                                    </fieldset>
-                                                </div>
-                                                <div class="column_3-form">
-                                                    <fieldset class="ml-form-field column is-11">
-                                                        <label>
-												<input type="text" ng-model="application.paymentChannel">
-												<span>Payment Channel</span>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="column_3-form">
+                                                        <fieldset class="ml-form-field column is-11">
+                                                            <label>
+												
+												<button class="ml-button-secondary" ng-click="removePaymentCard()" >Remove</button>
 											</label>
-                                                    </fieldset>
+                                                        </fieldset>
+                                                    </div>
                                                 </div>
+
                                             </div>
+                                        </div>
+                                        <div class="row">
+                                            <button class="ml-button-primary" ng-click="addPaymentCard()">Add</button>
                                         </div>
                                     </div>
 

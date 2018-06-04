@@ -10,7 +10,8 @@
     "angular-route": "^1.4.0",
     "angular-sanitize": "^1.4.0",
     "angular-touch": "^1.4.0",
-    "angular-bootstrap": "^2.5.0"
+    "angular-bootstrap": "^2.5.0",
+    "angular-save-html-to-pdf": "*"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"

@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Metlife POC</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="icon" href="favicon.ico?v=2">
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
@@ -22,8 +22,14 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div class="container">
+    <div class="container-fluid" ng-controller="IndexCtrl">
         <div ng-view=""></div>
+
+        <div class="loading-overlay" ng-if="globalLoading">
+            <div class="loader-container">
+                <div class="loader">Loading...</div>
+            </div>
+        </div>
     </div>
 
     <!-- build:js(.) scripts/vendor.js -->
@@ -38,6 +44,9 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/html2canvas/build/html2canvas.js"></script>
+    <script src="bower_components/jsPDF/dist/jspdf.debug.js"></script>
+    <script src="bower_components/angular-save-html-to-pdf/dist/saveHtmlToPdf.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -52,6 +61,10 @@
     <script src="scripts/directives/invalidfield/invalidfield.js"></script>
     <script src="scripts/services/webservices.js"></script>
     <script src="scripts/services/userinfo.js"></script>
+    <script src="scripts/controllers/addadditionalbenefit.js"></script>
+    <script src="scripts/controllers/index.js"></script>
+    <script src="scripts/controllers/simplemodal.js"></script>
+    <script src="scripts/directives/pdftemplate.js"></script>
     <!-- endbuild -->
 </body>
 

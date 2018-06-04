@@ -9,7 +9,7 @@
 angular.module('metLifeApp')
     .directive('mainFooter', function () {
         return {
-            templateUrl: './scripts/directives/mainfooter/mainfooter.html',
+            templateUrl: 'views/mainfooter.html',
             replace: true,
             restrict: 'E',
             link: function postLink(scope, element, attrs) {}

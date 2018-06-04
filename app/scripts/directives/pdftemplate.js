@@ -2,16 +2,17 @@
 
 /**
  * @ngdoc directive
- * @name metLifeApp.directive:mainHeader
+ * @name metLifeApp.directive:pdfTemplate
  * @description
- * # mainHeader
+ * # pdfTemplate
  */
 angular.module('metLifeApp')
-  .directive('mainHeader', function () {
+  .directive('pdfTemplate', function () {
     return {
-      templateUrl: 'views/mainheader.html',
+      template: '<div></div>',
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
+        element.text('this is the pdfTemplate directive');
       }
     };
   });

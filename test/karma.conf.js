@@ -30,6 +30,9 @@ module.exports = function(config) {
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-touch/angular-touch.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'bower_components/html2canvas/build/html2canvas.js',
+      'bower_components/jsPDF/dist/jspdf.debug.js',
+      'bower_components/angular-save-html-to-pdf/dist/saveHtmlToPdf.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

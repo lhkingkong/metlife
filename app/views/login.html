@@ -2,18 +2,17 @@
     <div class="container">
         <header class="margin-bottom-20 margin-top-20">
             <div class="columns is-mobile">
-                <div class="column">
+                <div class="logoHeader column">
                     <a href="http://www.metlife.com" target="_blank" class="logo"><img src="images/metlife-logo.png" alt="Metlife Logo"></a>
                 </div>
             </div>
         </header>
-        <div class="columns is-gapless">
+        <div class="loginBody columns is-gapless">
+            <div class="welcome">Welcome to MetLife POC</div>
             <div class="column is-4">
                 <form data-forms="floating-label" class="ml-form">
-                    <div class="contact-form">
-                        <div class="contact-form-quotes">
-                            <div class="contact-form-quotes-callout"><strong>Login</strong></div>
-                        </div>
+                    <div class="loginContainer contact-form">
+                        <div class="loginMessage">Please Login</div>
                         <div class="contact-form-body">
                             <form data-forms="floating-label" class="ml-form" method="post">
                                 <fieldset class="ml-form-field column">
@@ -30,7 +29,7 @@
                                 </fieldset>
                                 <p><a href="">Forgot user name or Passsword?</a></p>
 
-                                <div class="align-center">
+                                <div class="loginButton">
                                     <button class="ml-button-primary" ng-click="logInUser($event)">Submit</button>
                                 </div>
                             </form>
@@ -38,7 +37,6 @@
                     </div>
                 </form>
             </div>
-
         </div>
 
         <footer>
@@ -47,17 +45,18 @@
                 <div class="metlife-dark-blue is-3 column"></div>
                 <div class="metlife-green is-1 column"></div>
             </div>
-            <div class="footer-legal">
+            <div class="footerContainer">
                 <img src="images/metlife-footerlogo.png" class="footerlogo">
-                <p>*MetLife does not provide tax or legal advice.<br /> Please consult your tax advisor or attorney for such guidance.</p>
-                <p>Any discussion of taxes is for general informational purposes only, does not purport to be<br /> complete or cover every situation, and should not be construed as legal, tax or accounting advice.</p>
-                <p>Clients should confer with their qualified legal, tax and accounting advisors as appropriate.</p>
-                <div class="footerlinks">
-                    <a href="">Metlife</a>
-                    <a href="">Privacy</a>
-                    <a href="">Legal Notices</a>
-                    <a href="">Email Opt Out</a> </div>
-                <p>&copy; 2015 Metropolitan Life Insurance Company, New York, NY. All Rights Reserved. Each page has an unique legal #</p>
+                <div class="footerText">
+                  <div class="footerLinks">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Legal Notices</a>
+                    <a href="#">Feedback</a>
+                  </div>
+                  <div class="footerCopyright" tabindex="0">
+                    <p>©&nbsp;2018 Metropolitan Life Insurance Company, New York, NY 10166 - All Rights Reserved.</p>
+                  </div>
+                </div>
             </div>
         </footer>
     </div>

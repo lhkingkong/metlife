@@ -8,23 +8,28 @@
  * Controller of the metLifeApp
  */
 angular.module('metLifeApp')
-  .controller('MainCtrl', ['$scope',function ($scope) {
-      $scope.applications = [];
-      $scope.search = function(){
-          $scope.applications = [
-              {
-                  id: 10001,
-                  plan: 'Provida ML99',
-                  insuranceAmmount: 500000,
-                  paymentMethod: 'Payroll Deduction'
-              },
-              {
-                  id: 10002,
-                  plan: 'Provida ML99 B',
-                  insuranceAmmount: 400000,
-                  paymentMethod: 'Bank Collection'
-              }
-          ];
-      };
-      
+    .controller('MainCtrl', ['$scope', 'webServices', function ($scope, webServices) {
+        $scope.searchText = '';
+        $scope.lastSearchText = '';
+        $scope.applications = [];
+
+        $scope.checkEnter = function (e) {
+            if (e.which === 13) {
+                $scope.search();
+            }
+        };
+
+        $scope.search = function () {
+            if ($scope.searchText.length > 0) {
+                webServices.getApplications({
+                    query: $scope.searchText
+                }, function (resp) {
+                    $scope.lastSearchText = $scope.searchText;
+                    $scope.applications = resp;
+                });
+            } else {
+                $scope.$broadcast('invalidField', 'searchText');
+            }
+        };
+
   }]);

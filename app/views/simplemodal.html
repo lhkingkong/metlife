@@ -1,0 +1,11 @@
+<div class="simple-modal">
+    <div class="modal-header" ng-show="modal.header.length>0">
+        <h3 class="modal-title" id="modal-title">{{message.header}}</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        {{message.message}}
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    </div>
+</div>

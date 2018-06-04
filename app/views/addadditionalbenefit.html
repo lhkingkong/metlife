@@ -1,0 +1,46 @@
+<div class="add-additional-benefit">
+    <div class="modal-header">
+        <h3>Create Additional Benefit</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-4">
+                <fieldset class="ml-form-field ">
+                    <label>
+                    <input type="text" ng-model="benefit.planData" invalid-field="benefit.planData">
+                    <span>Plan Data</span>
+                </label>
+                </fieldset>
+            </div>
+            <div class="col-md-4">
+                <fieldset class="ml-form-field ">
+                    <label>
+                    <input type="text" ng-model="benefit.coverageData" invalid-field="benefit.coverageData">
+                    <span>Coverage Data</span>
+                </label>
+                </fieldset>
+            </div>
+            <div class="col-md-4">
+                <fieldset class="ml-form-field ">
+                    <label>
+                    <input type="text" ng-model="benefit.code" invalid-field="benefit.code">
+                    <span>Code</span>
+                </label>
+                </fieldset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <fieldset class="ml-form-field ml-form-field-select ">
+                    <select ng-model="benefit.type" ng-options="item as item.label for item in benefitTypes">
+                    <option disabled selected value="">Type</option>
+                </select>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="ml-button-secondary" ng-click="cancel()">Cancel</button>
+        <button class="ml-button-primary" ng-click="createAdditionalBenefit($event)">Create</button>
+    </div>
+</div>

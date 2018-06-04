@@ -1,56 +1,57 @@
 <div class="main">
     <main-header></main-header>
-    <div class="row">
-        <div class="col-md-9">
-            <div class="campaign-pages-hero">
-                <img src="../images/metlife-campaignhero.png" alt="Description of campaign hero">
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="contact-form">
-                <div class="contact-form-quotes">
-                    <div>Life Insurance Quotes</div><br>
-                    <div class="contact-form-quotes-callout"><strong>I want to get a quote</strong></div><br><br>
-                    <div class="align-center">
-                        <a class="ml-button-primary" ng-href="#/form">Get my Quote</a>
+    <div class="container">
+        <div class="main-intro row">
+            <div class="col-md-5">
+                <div class="contact-form">
+                    <div class="newQuote">
+                        <div class="getquoteSubtitle">Life Insurance Quotes</div>
+                        <div class="getquoteTitle">Registration & Quotation for Customers</div>
+                        <div class="align-center">
+                            <a class="ml-button-primary" ng-href="#/form">Get my Quote</a>
+                        </div>
                     </div>
+                    <div class="contact-form-quotes-callout">Call us now 1-800-Met-LIFE</div>
                 </div>
-                <br><br>
-                <div class="contact-form-quotes-callout">Call us now 1-800-Met-LIFE</div>
-                <br>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
+        <div class="searchArea row">
+            <div class="searchBar col-md-6">
+                <div class="input-group">
+                    <input type="text" class="customInput form-control" placeholder="Search by Indentifier / Name Holder" ng-model="searchText" invalid-field="searchText" ng-keydown="checkEnter($event)">
+                    <span class="input-group-btn">
                 <button class="btn btn-primary" type="button" ng-click="search()"><span class="glyphicon glyphicon-search"></span></button>
-                </span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-12 last-search-text" ng-show="lastSearchText.length>0">
+                Search <span>{{lastSearchText}}</span>
+            </div>
+            <div class="col-md-12" ng-show="applications && applications.length>0">
+                <form data-forms="floating-label" method="post">
+                    <table class="searchTable ml-table ">
+                        <tr class="searchTableHeader ml-table-col-row">
+                            <td class="searchTableCol ml-table-col"><label class="searchTableTitle ml-table-col-header-title">Identifier</label></td>
+                            <td class="searchTableCol ml-table-col"><label class="searchTableTitle ml-table-col-header-title">Plan</label></td>
+                            <td class="searchTableCol ml-table-col"><label class="searchTableTitle ml-table-col-header-title">Insurance Amount</label></td>
+                            <td class="searchTableCol ml-table-col"><label class="searchTableTitle ml-table-col-header-title">Status</label></td>
+                            <td class="searchTableCol ml-table-col"><label class="searchTableTitle ml-table-col-header-title">Action</label></td>
+                        </tr>
+                        <tr ng-repeat="application in applications" class="table-row"  ng-class="{'white-row':$even}">
+                            <td class="ml-table-col"><a ng-href="#/form/{{application.aplicationId}}">{{application.aplicationId}}</a></td>
+                            <td class="ml-table-col">{{application.planName}}</td>
+                            <td class="ml-table-col align-right">{{application.insuranceAmount | currency}}</td>
+                            <td class="ml-table-col">{{application.aplicationStatus}}</td>
+                            <td class="ml-table-col"><a href="#" target="_blank">Open PDF</a></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="col-md-12" ng-show="lastSearchText.length>0 && applications.length<1">
+                <div class="no-results">No results found</div>
             </div>
         </div>
-        <div class="col-md-12" ng-show="applications && applications.length>0">
-            <form data-forms="floating-label" class="ml-form" method="post">
-                <table class="ml-table ">
-                    <tr class="ml-table-col-row">
-                        <td class="ml-table-col"><label class="ml-table-col-header-title">Identifier</label></td>
-                        <td class="ml-table-col"><label class="ml-table-col-header-title">Plan</label></td>
-                        <td class="ml-table-col"><label class="ml-table-col-header-title">Insurance Amount</label></td>
-                        <td class="ml-table-col"><label class="ml-table-col-header-title">Status</label></td>
-                        <td class="ml-table-col"><label class="ml-table-col-header-title">Action</label></td>
-                    </tr>
-                    <tr ng-repeat="application in applications">
-                        <td class="ml-table-col"><a ng-href="#/form/{{application.id}}">{{application.id}}</a></td>
-                        <td class="ml-table-col">{{application.plan}}</td>
-                        <td class="ml-table-col">{{application.insuranceAmmount}}</td>
-                        <td class="ml-table-col">{{application.status}}</td>
-                        <td class="ml-table-col">PDF</td>
-                    </tr>
-                </table>
-            </form>
-        </div>
+        <main-footer></main-footer>
     </div>
-    <main-footer></main-footer>
+
 </div>

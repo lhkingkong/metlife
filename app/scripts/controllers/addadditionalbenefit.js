@@ -10,9 +10,7 @@
 angular.module('metLifeApp')
     .controller('AddAdditionalBenefitCtrl', ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
         $scope.benefitTypes = [
-            {
-                label: 'options'
-            }
+             'Radio','Input'
         ];
 
         $scope.cancel = function () {

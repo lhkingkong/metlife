@@ -38,8 +38,8 @@
                                     <div class="col-md-4">
                                         <fieldset class="ml-form-field ">
                                             <label>
-												<input type="text" ng-model="application.MLastName" 
-                                                       invalid-field="application.MLastName" required>
+												<input type="text" ng-model="application.mlastName" 
+                                                       invalid-field="application.mlastName" required>
 												<span>Maternal Surname</span>
 											</label>
                                         </fieldset>
@@ -56,7 +56,7 @@
                                             </fieldset>-->
                                         <div class="ml-form-field ml-form-field-select " ng-show="showingPersonalInformation">
                                             <p class="input-group">
-                                                <input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="application.birthDate" close-text="Close" is-open="popup1.opened" ng-click="popup1.opened = true" placeholder="Birth Date" onkeydown="return false" required />
+                                                <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" ui-date="{ dateFormat: 'dd-MM-yyyy' }" ng-model="application.birthDate" close-text="Close" is-open="popup1.opened" ng-click="popup1.opened = true" placeholder="Birth Date" datepicker-options="datePickerOptions" onkeydown="return false" required />
                                                 <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="popup1.opened = true"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
@@ -261,6 +261,7 @@
 
                                 <div class="nextButtonContainer align-right">
                                     <button class="ml-button-secondary" ng-click="cancelApplication($event)">Cancel</button>
+                                    <button class="ml-button-secondary" ng-click="submitForm($event,true)">Save Draft</button>
                                     <button class="ml-button-primary" ng-click="changeSection($event, 2)">Next</button>
                                 </div>
 
@@ -305,46 +306,51 @@
                                                 <select ng-init="application.basicBenefit = basicBenefitOptions[0]" ng-model="application.basicBenefit" ng-options="item as item for item in basicBenefitOptions"></select>
                                             </fieldset>
                                         </td>
-                                        <td class="ml-table-col premium-col">{{calculatePremium(application.basicBenefit)}}</td>
+                                        <td class="ml-table-col premium-col">{{calculateBasicPremium(application.basicBenefit)}}</td>
                                     </tr>
                                     <tr class="ml-table-col ml-table-col-header-title">
                                         <td colspan="6" class="ml-table-col additional-benefits">
                                             Additional Benefits
-                                            <button class="ml-button-primary" ng-click="openAdditionalBenefitModal()">
+                                            <!-- <button class="ml-button-primary" ng-click="openAdditionalBenefitModal($event)">
                                                 <span class="glyphicon glyphicon-plus"></span>
-                                            </button>
+                                            </button> -->
                                         </td>
                                     </tr>
-                                    <tr ng-repeat="benefit in additionalBenefits" class="ml-table-col-row repeated-item table-row" ng-class="{'white-row':$even}">
+                                    <tr ng-repeat="benefit in application.additionalBenefitsJsonKv" class="ml-table-col-row repeated-item table-row" ng-class="{'white-row':$even}">
                                         <td class="ml-table-col">{{benefit.benefitCode}}</td>
                                         <td class="ml-table-col">{{benefit.benefitName}}</td>
                                         <td class="ml-table-col">{{benefit.benefitDescription}}</td>
                                         <td class="ml-table-col"></td>
                                         <td class="ml-table-col">
                                             <div ng-switch="benefit.benefitType">
-                                                <div ng-switch-when="options">
+                                                <div ng-switch-when="Radio">
+                                                    <fieldset class="ml-form-field ml-form-field-select column" ng-repeat="value in makeJSON(benefit.benefitValue) track by $index">
+
+                                                        <div class="radio">
+                                                            <label>
+                                                                <input type="radio" ng-model="benefit.benefitAmmount" 
+                                                                       name="{{benefit.additionalBenefitId}}" ng-value="value">
+                                                                {{value}}
+                                                            </label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div ng-switch-when="List">
                                                     <fieldset class="ml-form-field ml-form-field-select column">
-                                                        <select ng-model="application.additionalBenefits[benefit.additionalBenefitId
-]" ng-options="item as item for item in benefit.options">
+                                                        <select ng-model="benefit.benefitAmmount" ng-options="item as item for item in makeJSON(benefit.benefitValue)">
                                                             <option disabled selected value="">-- Select option --</option>
                                                         </select>
                                                     </fieldset>
                                                 </div>
-                                                <div ng-switch-when="Radio">
-                                                    <fieldset class="ml-form-field ml-form-field-select column" ng-repeat="value in makeJSON(benefit.benefitValue) track by $index">
-                                                        {{value}}
-                                                    </fieldset>
-                                                </div>
                                                 <div ng-switch-default>
                                                     <fieldset class="ml-form-field column">
-                                                        <input type="text" ng-model="application.additionalBenefits[benefit.additionalBenefitId
-]">
+                                                        <input type="text" ng-model="benefit.benefitAmmount">
                                                     </fieldset>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="ml-table-col premium-col">{{calculatePremium(application.additionalBenefits[benefit.additionalBenefitId
-])}}</td>
+                                        <td class="ml-table-col premium-col">{{calculatePremium(benefit)}}
+                                        </td>
                                     </tr>
                                     <tr class="ml-table-col ml-table-col-header-title premium-total">
                                         <td colspan="5" class="ml-table-col">Total</td>
@@ -354,6 +360,7 @@
                                 </table>
 
                                 <div class="nextButtonContainer align-right">
+                                    <button class="ml-button-secondary" ng-click="submitForm($event,true)">Save Draft</button>
                                     <button class="ml-button-secondary" ng-click="changeSection($event, 1)">Back</button>
                                     <button class="ml-button-primary" ng-click="changeSection($event, 3)">Next</button>
                                 </div>
@@ -383,11 +390,11 @@
                                             <div class="col-md-4" ng-show="payment.paymentType === 'Descuento por nomina'">
                                                 <fieldset class="ml-form-field ">
                                                     <label>
-                                                        <input type="text" ng-model="payment.employer" uib-typeahead="employer as employer.employerName for employer in getEmployers($viewValue)" typeahead-loading="loadingEmployers" typeahead-no-results="noEmployersResults" typeahead-wait-ms="500">
-												<span>Retainer <i ng-show="loadingEmployers" class="glyphicon glyphicon-refresh"></i>
-                                                    <span ng-show="noEmployersResults">No Results Found</span>
-                                                </span>
-											</label>
+                                                        <input type="text" ng-model="payment.employer" uib-typeahead="employer as employer.employerName for employer in getEmployers($viewValue)" typeahead-loading="loadingEmployers" typeahead-no-results="noEmployersResults" typeahead-editable="false" typeahead-wait-ms="500">
+                                                        <span>Retainer <i ng-show="loadingEmployers" class="glyphicon glyphicon-refresh"></i>
+                                                            <span ng-show="noEmployersResults">No Results Found</span>
+                                                        </span>
+											         </label>
                                                 </fieldset>
                                             </div>
                                         </div>
@@ -490,11 +497,12 @@
                                                     <option disabled selected value="">Payment Deductions</option>
                                                 </select>
                                             </fieldset>
-                                            <button class="ml-button-primary" ng-click="addPaymentDeduction()">Add</button>
+                                            <button class="ml-button-primary" ng-click="addPaymentDeduction($event)">Add</button>
                                         </div>
                                     </div>
 
                                     <div class="nextButtonContainer align-right">
+                                        <button class="ml-button-secondary" ng-click="submitForm($event,true)">Save Draft</button>
                                         <button class="ml-button-secondary" ng-click="changeSection($event, 2)">Back</button>
                                         <button class="ml-button-primary" ng-click="changeSection($event, 4)">Summary</button>
                                     </div>
@@ -508,195 +516,8 @@
                         <div class="summary" ng-show="section === 4">
                             <div class="contact-form">
                                 <div class="contact-form-body">
-
-                                    <h3 class="contact-form-title">Summary</h3>
-
-                                    <h3 class="contact-form-title">Basic Information for Payment Type</h3>
-
-                                    <div class="payment-methods repeated-item" ng-repeat="payment in paymentDeductions">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                Name(s)
-                                            </div>
-                                            <div class="col-md-3">
-                                                {{application.firstName}}
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                Paternal Surname
-                                            </div>
-                                            <div class="col-md-3">
-                                                {{application.lastName}}
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                Maternal Surname
-                                            </div>
-                                            <div class="col-md-3">
-                                                {{application.MLastName}}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <h3 class="contact-form-title">Plan Data</h3>
-
-                                    <div class="row" ng-show="payment.paymentType === 'Descuento por nomina'">
-                                        <div class="col-md-3">
-                                            Plan
-                                        </div>
-                                        <div class="col-md-9">
-                                            {{application.plan}}
-                                        </div>
-                                    </div>
-
-                                    <table class="additional-benefits-table">
-                                        <th class="ml-table-col ml-table-col-header">
-                                            <label class="ml-table-col-header-title">Code</label>
-                                        </th>
-                                        <th class="ml-table-col ml-table-col-header">
-                                            <label class="ml-table-col-header-title">Plan Data</label>
-                                        </th>
-                                        <th class="ml-table-col ml-table-col-header">
-                                            <label class="ml-table-col-header-title">Coverage Data</label>
-                                        </th>
-                                        <th class="ml-table-col ml-table-col-header">
-                                            <label class="ml-table-col-header-title">Insurance Amount </label><br>Holder / Complementary
-                                        </th>
-                                        <th class="ml-table-col ml-table-col-header">
-                                            <label class="ml-table-col-header-title">Premium</label>
-                                        </th>
-                                        <tr class="ml-table-col-row" style="background: white;">
-                                            <td class="ml-table-col">BAS</td>
-                                            <td class="ml-table-col">
-                                                <label for="lorem2">Basic Benefit by Death</label>
-                                            </td>
-                                            <td class="ml-table-col"></td>
-                                            <td class="ml-table-col">
-                                                <fieldset class="ml-form-field ml-form-field-select ">
-                                                    <select ng-init="application.basicBenefit = basicBenefitOptions[0]" ng-model="application.basicBenefit" ng-options="item as item for item in basicBenefitOptions"></select>
-                                                </fieldset>
-                                            </td>
-                                            <td class="ml-table-col premium-col">{{calculatePremium(application.basicBenefit)}}</td>
-                                        </tr>
-                                        <tr class="ml-table-col ml-table-col-header-title">
-                                            <td colspan="5" class="ml-table-col additional-benefits">
-                                                Additional Benefits
-                                            </td>
-                                        </tr>
-                                        <tr ng-repeat="benefit in additionalBenefits" class="ml-table-col-row repeated-item table-row" ng-class="{'white-row':$even}">
-                                            <td class="ml-table-col">{{benefit.benefitCode}}</td>
-                                            <td class="ml-table-col">{{benefit.benefitName}}</td>
-                                            <td class="ml-table-col">{{benefit.benefitDescription}}</td>
-                                            <td class="ml-table-col">
-                                               {{benefit.application.additionalBenefits[benefit.additionalBenefitId
-]}}
-                                            </td>
-                                            <td class="ml-table-col premium-col">
-                                                {{calculatePremium(application.additionalBenefits[benefit.additionalBenefitId
-])}}
-                                            </td>
-                                        </tr>
-                                        <tr class="ml-table-col ml-table-col-header-title premium-total">
-                                            <td colspan="4" class="ml-table-col">Total</td>
-                                            <td class="ml-table-col premium-col">{{calculateTotalPremium()}}</td>
-                                        </tr>
-
-                                    </table>
-
-
-
-                                    <h3 class="contact-form-title">Basic Information for Payment Type</h3>
-
-                                    <div class="payment-methods repeated-item" ng-repeat="payment in paymentDeductions">
-
-                                        <div class="row" ng-show="payment.paymentType === 'Descuento por nomina'">
-                                            <div class="col-md-3">
-                                                Federative Entity
-                                            </div>
-                                            <div class="col-md-3">
-                                                {{payment.federativeEntity}}
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                Retainer
-                                            </div>
-                                            <div class="col-md-3">
-                                                {{payment.employer.employerName}}
-                                            </div>
-                                        </div>
-                                        <div class="row" ng-show="payment.paymentType === 'Descuento por nomina'">
-                                            <div class="col-md-3">
-                                                Payment Unit
-                                            </div>
-                                            <div class="col-md-3">
-                                                {{payment.paymentUnit}}
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                Concept
-                                            </div>
-                                            <div class="col-md-3">
-                                                {{payment.paymentConcept}}
-                                            </div>
-                                        </div>
-                                        <div class="row" ng-show="payment.paymentType === 'Descuento por nomina'">
-                                            <div class="col-md-3">
-                                                Payment Period
-                                            </div>
-                                            <div class="col-md-3">
-                                                {{payment.paymentPeriod}}
-                                            </div>
-                                            
-                                            <div class="col-md-3">
-                                                Payment Method
-                                            </div>
-                                            <div class="col-md-3">
-                                                {{payment.paymentMethod}}
-                                            </div>
-                                        </div>
-
-                                        <div class="row" ng-show="payment.paymentType === 'Descuento por nomina'">
-                                            <div class="col-md-3">
-                                                Labor Regime
-                                            </div>
-                                            <div class="col-md-3">
-                                                {{payment.laborRegime}}
-                                            </div>
-                                        </div>
-
-                                        <div class="row" ng-show="payment.paymentType === 'Cobranza Bancaria'">
-                                            <div class="col-md-3">
-                                                CLABE Account / Token
-                                            </div>
-                                            <div class="col-md-3">
-                                                {{payment.clabeAccountToken}}
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                Bank
-                                            </div>
-                                            <div class="col-md-3">
-                                                {{payment.bank}}
-                                            </div>
-                                        </div>
-
-                                        <div class="row" ng-show="payment.paymentType === 'Cobranza Bancaria'">
-                                            <div class="col-md-3">
-                                                Priority
-                                            </div>
-                                            <div class="col-md-3">
-                                                {{payment.priority}}
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                Payment Proposal
-                                            </div>
-                                            <div class="col-md-3">
-                                                {{payment.paymentProposal}}
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
+                                    <main-pdf application="application" payment-deductions="paymentDeductions" calculate-total-premium="calculateTotalPremium" calculate-basic-premium="calculateBasicPremium"></main-pdf>
 
                                     <div class="contact-form-details">
                                         <p>By clicking Submit, you agree that we* may contact you at the number you've provided, possibly using automated technology or a prerecorded voice, to talk about our products and services. If you don't want to give this permission, you can still get a quote or make a purchase by calling us directly at 1-800-638-5433</p>
@@ -704,6 +525,7 @@
                                     </div>
 
                                     <div class="nextButtonContainer align-right">
+                                        <button class="ml-button-secondary" ng-click="submitForm($event,true)">Save Draft</button>
                                         <button class="ml-button-secondary" ng-click="changeSection($event, 3)">Back</button>
                                         <button class="ml-button-primary" ng-click="submitForm($event)">Submit</button>
                                     </div>

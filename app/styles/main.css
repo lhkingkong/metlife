@@ -2758,12 +2758,58 @@ hr {
     top: 0;
     left:0;
     background: rgba(255,255,255, 0.85);
+    z-index: 2;
 }
 
 .additional-benefits-table{
     width: 100%;
     margin-bottom: 10px;
 }
+
+.main-pdf {
+    text-align: center;
+}
+
+.main-pdf .pdf-save-content{
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: 40px;
+    background: white;
+    max-width: 980px;
+}
+
+.main-pdf .contact-form-title{
+    font-size: 16px !important;
+    color:#333 !important;
+}
+
+.main-pdf .ml-table-col-header{
+    padding: 5px;
+    font-size: 14px;
+    background: #EFEFEF;
+}
+.main-pdf .ml-table-col-header label{
+    font-size: 14px;
+}
+
+.main-pdf .additional-benefits{
+    font-size: 14px;
+    background: #EFEFEF;
+}
+
+.main-pdf .premium-total{
+    background: #EFEFEF;
+    color: black;
+    text-shadow: none;
+}
+
+.main-pdf > .ml-button-secondary{
+    margin-top: 10px;
+    float: right;
+    clear: both;
+}
+
+.html2canvas-container { width: 3000px !important; height: 3000px !important; }
 
 /* -----------modal---------------- */
 .modal-header h3{

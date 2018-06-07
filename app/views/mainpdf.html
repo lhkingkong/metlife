@@ -1,0 +1,188 @@
+<div class="main-pdf">
+    <div class="pdf-save-content">
+        <div pdf-save-content="idOneGraph">
+            <img src="images/metlife-logo.png">
+
+            <h3 class="contact-form-title">Basic Information for Payment Type</h3>
+
+            <div class="payment-methods repeated-item">
+                <div class="row">
+                    <div class="col-md-2">
+                        Name(s)
+                    </div>
+                    <div class="col-md-2">
+                        {{application.firstName}}
+                    </div>
+                    <div class="col-md-2">
+                        Paternal Surname
+                    </div>
+                    <div class="col-md-2">
+                        {{application.lastName}}
+                    </div>
+                    <div class="col-md-2">
+                        Maternal Surname
+                    </div>
+                    <div class="col-md-2">
+                        {{application.mlastName}}
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="contact-form-title">Plan Data</h3>
+
+            <div class="row" ng-show="payment.paymentType === 'Descuento por nomina'">
+                <div class="col-md-3">
+                    Plan
+                </div>
+                <div class="col-md-9">
+                    {{application.plan}}
+                </div>
+            </div>
+
+            <table class="additional-benefits-table">
+                <th class="ml-table-col ml-table-col-header">
+                    <label class="ml-table-col-header-title">Code</label>
+                </th>
+                <th class="ml-table-col ml-table-col-header">
+                    <label class="ml-table-col-header-title">Plan Data</label>
+                </th>
+                <th class="ml-table-col ml-table-col-header">
+                    <label class="ml-table-col-header-title">Coverage Data</label>
+                </th>
+                <th class="ml-table-col ml-table-col-header">
+                    <label class="ml-table-col-header-title">Insurance Amount </label><br>Holder / Complementary
+                </th>
+                <th class="ml-table-col ml-table-col-header">
+                    <label class="ml-table-col-header-title">Premium</label>
+                </th>
+                <tr class="ml-table-col-row" style="background: white;">
+                    <td class="ml-table-col">BAS</td>
+                    <td class="ml-table-col">
+                        <label for="lorem2">Basic Benefit by Death</label>
+                    </td>
+                    <td class="ml-table-col"></td>
+                    <td class="ml-table-col">
+                        {{application.basicBenefit}}
+                    </td>
+                    <td class="ml-table-col premium-col">{{calculateBasicPremium(application.basicBenefit)}}</td>
+                </tr>
+                <tr class="ml-table-col ml-table-col-header-title">
+                    <td colspan="5" class="ml-table-col additional-benefits">
+                        Additional Benefits
+                    </td>
+                </tr>
+                <tr ng-repeat="benefit in application.additionalBenefitsJsonKv" class="ml-table-col-row repeated-item table-row" ng-class="{'white-row':$even}">
+                    <td class="ml-table-col">{{benefit.benefitCode}}</td>
+                    <td class="ml-table-col">{{benefit.benefitName}}</td>
+                    <td class="ml-table-col">{{benefit.benefitDescription}}</td>
+                    <td class="ml-table-col">
+                        {{benefit.benefitAmmount}}
+                    </td>
+                    <td class="ml-table-col premium-col">
+                        {{benefit.benefitPremium}}
+                    </td>
+                </tr>
+                <tr class="ml-table-col ml-table-col-header-title premium-total">
+                    <td colspan="4" class="ml-table-col">Total</td>
+                    <td class="ml-table-col premium-col">{{calculateTotalPremium()}}</td>
+                </tr>
+
+            </table>
+
+
+
+            <h3 class="contact-form-title">Basic Information for Payment Type</h3>
+
+            <div class="payment-methods repeated-item" ng-repeat="payment in paymentDeductions">
+
+                <div class="row" ng-show="payment.paymentType === 'Descuento por nomina'">
+                    <div class="col-md-3">
+                        Federative Entity
+                    </div>
+                    <div class="col-md-3">
+                        {{payment.federativeEntity}}
+                    </div>
+
+                    <div class="col-md-3">
+                        Retainer
+                    </div>
+                    <div class="col-md-3">
+                        {{payment.employer.employerName}}
+                    </div>
+                </div>
+                <div class="row" ng-show="payment.paymentType === 'Descuento por nomina'">
+                    <div class="col-md-3">
+                        Payment Unit
+                    </div>
+                    <div class="col-md-3">
+                        {{payment.paymentUnit}}
+                    </div>
+
+                    <div class="col-md-3">
+                        Concept
+                    </div>
+                    <div class="col-md-3">
+                        {{payment.paymentConcept}}
+                    </div>
+                </div>
+                <div class="row" ng-show="payment.paymentType === 'Descuento por nomina'">
+                    <div class="col-md-3">
+                        Payment Period
+                    </div>
+                    <div class="col-md-3">
+                        {{payment.paymentPeriod}}
+                    </div>
+
+                    <div class="col-md-3">
+                        Payment Method
+                    </div>
+                    <div class="col-md-3">
+                        {{payment.paymentMethod}}
+                    </div>
+                </div>
+
+                <div class="row" ng-show="payment.paymentType === 'Descuento por nomina'">
+                    <div class="col-md-3">
+                        Labor Regime
+                    </div>
+                    <div class="col-md-3">
+                        {{payment.laborRegime}}
+                    </div>
+                </div>
+
+                <div class="row" ng-show="payment.paymentType === 'Cobranza Bancaria'">
+                    <div class="col-md-3">
+                        CLABE Account / Token
+                    </div>
+                    <div class="col-md-3">
+                        {{payment.clabeAccountToken}}
+                    </div>
+
+                    <div class="col-md-3">
+                        Bank
+                    </div>
+                    <div class="col-md-3">
+                        {{payment.bank}}
+                    </div>
+                </div>
+
+                <div class="row" ng-show="payment.paymentType === 'Cobranza Bancaria'">
+                    <div class="col-md-3">
+                        Priority
+                    </div>
+                    <div class="col-md-3">
+                        {{payment.priority}}
+                    </div>
+
+                    <div class="col-md-3">
+                        Payment Proposal
+                    </div>
+                    <div class="col-md-3">
+                        {{payment.paymentProposal}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button pdf-save-button="idOneGraph" pdf-name="hello.pdf" class="ml-button-secondary">PDF</button>
+</div>

@@ -19,7 +19,8 @@ angular
     'ui.bootstrap',
     'htmlToPdfSave'
   ])
-    .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
+    .config(['$locationProvider', '$routeProvider', '$httpProvider', function ($locationProvider, $routeProvider, $httpProvider) {
+        
         $locationProvider.hashPrefix('');
         $routeProvider
             .when('/', {
@@ -81,8 +82,8 @@ angular
                         if ($route.current.params.appId) {
                             
                           webServices.getApplicationInfo($route.current.params.appId, function (response) {
-                              console.log(response);
-                              dfd.resolve(response);
+                              console.log(response.data);
+                              dfd.resolve(response.data);
                           });
                         } else {
                           dfd.resolve(false);
@@ -91,14 +92,14 @@ angular
                     }]
                 }
             })
-            /*.when('/login', {
+            .when('/login', {
                 templateUrl: 'views/login.html',
                 controller: 'LoginCtrl',
                 controllerAs: 'login',
                 resolve: {
                     user: ['webServices', '$q', '$location', '$resource', 'userInfo', function (webServices, $q, $location, $resource, userInfo) {
                         var dfd = $q.defer();
-                        var user = userInfo.get();
+                        /*var user = userInfo.get();
                         if (!user) {
                             webServices.verifyUser({}, function (response) {
                                 if (!response.user) {
@@ -108,13 +109,13 @@ angular
                                     dfd.resolve();
                                 }
                             });
-                        } else {
+                        } else {*/
                             dfd.resolve();
-                        }
+                        //}
                         return dfd.promise;
                     }]
                 }
-            })*/
+            })
             .otherwise({
                 redirectTo: '/login'
             });
